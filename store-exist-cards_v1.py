@@ -11,4 +11,3 @@ exist_cards = {
         "Strength": 1,
     }
 }
-print("nigga")
