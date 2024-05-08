@@ -9,6 +9,8 @@ exist_cards = {
     }
     "Vexscream": {
         "Strength": 1,
+        "Speed"
+    
+    
     }
 }
-print("nigga")
