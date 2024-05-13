@@ -1,6 +1,7 @@
 ###component 1 store exist cards###
-import easygui
 
+
+# Store exist cards in dictionaries
 exist_cards = {
     "Stoneling": {"Strength": 7, "Speed": 1, "Stealth": 25, "Cunning": 15},
     "Vexscream": {"Strength": 1, "Speed": 6, "Stealth": 21, "Cunning": 19},
@@ -13,4 +14,3 @@ exist_cards = {
     "Froststep": {"Strength": 14, "Speed": 14, "Stealth": 17, "Cunning": 4},
     "Wispghoul": {"Strength": 17, "Speed": 19, "Stealth": 3, "Cunning": 2}
 }
-easygui.msgbox(exist_cards)
