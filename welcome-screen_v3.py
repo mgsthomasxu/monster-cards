@@ -3,6 +3,7 @@
 
 import easygui
 
+# Welcome screen (been well formated)
 choices = easygui.buttonbox("                      Welcome to Monster Card Manager\n"
                             "                                Instrutions:\n"
                             "You may Edit and Delete cards, Add new cards, and Print all the existing cards\n"
@@ -11,20 +12,20 @@ choices = easygui.buttonbox("                      Welcome to Monster Card Manag
                             choices=["Add card", "Find card", "Delete card", "Output all", "Exit"],
                             title="Monster Card OPTIONS")
 
-
+# Loop until the user chooses to exit
 while True:
     if choices == "Add card":
-        # Code to add a new card
-        easygui.enterbox
+        # add a new card
+        easygui.enterbox("working")
     elif choices == "Find card":
-        # Code to find a card
-        easygui.buttonbox
+        # find a card
+        easygui.buttonbox("working")
     elif choices == "Delete card":
-        # Code to delete a card
-        easygui.buttonbox
+        #  delete a card
+        easygui.buttonbox("working")
     elif choices == "Output all":
-        # Code to output all cards
-        easygui.msgbox
+        # output all cards
+        easygui.msgbox("working")
     elif choices == "Exit":
-        # Code to exit the program
+        # exit the program
         break
