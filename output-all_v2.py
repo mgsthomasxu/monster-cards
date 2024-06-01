@@ -1,5 +1,5 @@
 ###component 3 add combo###
-#For this version I added
+#For this version I am adding titles for easyguiboxes
 
 import easygui
 
@@ -27,22 +27,7 @@ while True:
                                 "     (Strength, Speed, Stealth, and Cunning) when Adding a new card",
                                 choices=["Add card", "Find card", "Delete card", "Output all", "Exit"],
                                 title="Monster Card OPTIONS")
-                                
-    if choices == "Add card":
-        card_name = easygui.enterbox("Enter the name for the new card \n(leave blank to return to welcome screen):", title="Add Card")
-        if not card_name:  # User left blank
-            pass  # Return to the welcome screen
-        elif card_name in exist_cards:
-            easygui.msgbox(f"Card '{card_name}' already exists. Please choose a different name.", "Error")
-        else:
-            strength = easygui.integerbox(f"Enter the Strength for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
-            speed = easygui.integerbox(f"Enter the Speed for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
-            stealth = easygui.integerbox(f"Enter the Stealth for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
-            cunning = easygui.integerbox(f"Enter the Cunning for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
-            exist_cards[card_name] = {"Strength": strength, "Speed": speed, "Stealth": stealth, "Cunning": cunning}
-            easygui.msgbox(f"Card '{card_name}' added successfully!", title="Success")
-    
-    elif choices == "Output all":
+    if choices == "Output all":
         card_info = ""
         for card_name, card_stats in exist_cards.items():
             card_info += f"## {card_name}\n"

@@ -30,33 +30,20 @@ choices = easygui.buttonbox("                      Welcome to Monster Card Manag
 
 # Loop until the user chooses to exit
 while True:
-    while choices != "Exit":
-            # add a new card
-        if choices == "Add card":
-            card_name = easygui.enterbox("Enter the name of the new card:", "Add Card")
-            if card_name:
-                if card_name in exist_cards:
-                    easygui.msgbox(f"Card '{card_name}' already exists. Please choose a different name.", "Error")
-                else:
-                    strength = easygui.integerbox("Enter the Strength value (0-25):")
-                    speed = easygui.integerbox("Enter the Speed value (0-25):")
-                    stealth = easygui.integerbox("Enter the Stealth value (0-25):")
-                    cunning = easygui.integerbox("Enter the Cunning value (0-25):")
+    # add a new card
+    if choices == "Add card":
+        card_name = easygui.enterbox("Enter the name of the new card:", "Add Card")
+        if card_name:
+            if card_name in exist_cards:
+                easygui.msgbox(f"Card '{card_name}' already exists. Please choose a different name.", "Error")
+            else:
+                strength = easygui.integerbox("Enter the Strength value (0-25):")
+                speed = easygui.integerbox("Enter the Speed value (0-25):")
+                stealth = easygui.integerbox("Enter the Stealth value (0-25):")
+                cunning = easygui.integerbox("Enter the Cunning value (0-25):")
+                exist_cards[card_name] = {"Strength": strength, "Speed": speed, "Stealth": stealth, "Cunning": cunning}
+                easygui.msgbox(f"Card '{card_name}' added successfully!")
+    elif choices == "Exit":
+        break
 
-                    if strength is not None and speed is not None and stealth is not None and cunning is not None:
-                        exist_cards[card_name] = {"Strength": strength, "Speed": speed, "Stealth": stealth, "Cunning": cunning}
-                        easygui.msgbox(f"Card '{card_name}' added successfully!", "Success")
-                    else:
-                        easygui.msgbox("Card addition canceled.", "Canceled")
-        elif choices == "Find card":
-            # find a card
-            easygui.buttonbox("working")
-        elif choices == "Delete card":
-            #  delete a card
-            easygui.buttonbox("working")
-        elif choices == "Output all":
-            # output all cards
-            easygui.msgbox("working")
-        else:
-            break
 

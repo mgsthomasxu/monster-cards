@@ -1,75 +1,103 @@
-# 27/03/2023, 09:37
-# contacts_v3.py
-# ~\OneDrive
-# -
-# Middleton Grange School\Resources\12DTC\2.7 and 2.8
-# combined unit\6-8 Exercise solutions
-# -
-# own\contacts_v3.py
-
 import easygui
 
-# Original list
-
-contacts = {
-    1: {
-        "First Name": "John",
-        "Last Name": "Matua",
-        "Mobile": "027 121 1245",
-        "Email": "matua_j@maximail.com"
-    },
-    2: {
-        "First Name": "Smith",
-        "Last Name": "Pearson",
-        "Mobile": "029 127 1247",
-        "Email": "selat@maximail.co.lt"
-    }
+exist_cards = {
+    "Stoneling": {"Strength": 7, "Speed": 1, "Stealth": 25, "Cunning": 15},
+    "Vexscream": {"Strength": 1, "Speed": 6, "Stealth": 21, "Cunning": 19},
+    "Dawnmirage": {"Strength": 5, "Speed": 15, "Stealth": 18, "Cunning": 22},
+    "Blazegolem": {"Strength": 15, "Speed": 20, "Stealth": 23, "Cunning": 6},
+    "Websnake": {"Strength": 7, "Speed": 15, "Stealth": 10, "Cunning": 5},
+    "Moldvine": {"Strength": 21, "Speed": 18, "Stealth": 14, "Cunning": 5},
+    "Vortexwing": {"Strength": 19, "Speed": 13, "Stealth": 19, "Cunning": 2},
+    "Rotthing": {"Strength": 16, "Speed": 7, "Stealth": 4, "Cunning": 12},
+    "Froststep": {"Strength": 14, "Speed": 14, "Stealth": 17, "Cunning": 4},
+    "Wispghoul": {"Strength": 17, "Speed": 19, "Stealth": 3, "Cunning": 2}
 }
 
-# Loop till "Quit"
+# Loop until the user chooses to exit
 while True:
-    result = []
-    choice = easygui.buttonbox("What do you want to do:", "Choices",
-                               choices=["Search", "New Contact",
-                                        "Print All", "Quit"])
+    # Welcome screen
+    choices = easygui.buttonbox("                      Welcome to Monster Card Manager\n"
+                                "                                Instructions:\n"
+                                "You may Edit and Delete cards, Add new cards, and Print all the existing cards\n"
+                                "       When Adding a new card You will be limited to 4 Categories \n"
+                                "     (Strength, Speed, Stealth, and Cunning) when Adding a new card",
+                                choices=["Add card", "Find card", "Delete card", "Edit card", "Output all", "Exit"],
+                                title="Monster Card OPTIONS")
 
-    if choice == "Search":
-        search_ID = ""
-        search_name = easygui.enterbox("Enter name: ", "Search").capitalize()
-        for contact in contacts:
-            if search_name in contacts[contact]["First Name"] or \
-               search_name in contacts[contact]["Last Name"]:
-                search_ID = contacts[contact]
-
-        if search_ID:
-            for key in search_ID:
-                item = f"{key}: {search_ID[key]}"
-                result.append(item)
-            easygui.msgbox("\n".join(result), "Found")
+    if choices == "Add card":
+        card_name = easygui.enterbox("Enter the name of the new card (leave blank to return to the welcome screen):", title="Add Card")
+        if card_name is None:  # User canceled or left blank
+            continue
+        elif not card_name:  # User left blank
+            pass  # Return to the welcome screen
+        elif card_name in exist_cards:
+            easygui.msgbox(f"Card '{card_name}' already exists. Please choose a different name.", "Error")
         else:
-            easygui.msgbox(f"\n{search_name} not in contacts", "Not Found")
+            strength = easygui.integerbox(f"Enter the Strength for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
+            speed = easygui.integerbox(f"Enter the Speed for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
+            stealth = easygui.integerbox(f"Enter the Stealth for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
+            cunning = easygui.integerbox(f"Enter the Cunning for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
+            exist_cards[card_name] = {"Strength": strength, "Speed": speed, "Stealth": stealth, "Cunning": cunning}
+            easygui.msgbox(f"Card '{card_name}' added successfully!", "Success")
 
-    elif choice == "New Contact":
-        ID_number = ""
-        while not ID_number:
-            ID_number = easygui.integerbox("Person ID: ", "ID number")
-            # Check that ID not already used
-            for existingID in contacts:
-                if ID_number == existingID:
-                    easygui.msgbox(f"{ID_number} is already in use\nUse "
-                                   f"another ID number", "ERROR: Duplicate "
-                                   "ID number")
-                    ID_number = ""
-                contacts [ID_number]["First Name"] = first_name
-                last_name = easygui.enterbox("Last Name: ", "Last Name") contacts [ID_number]["Last Name"] = last_name
+    elif choices == "Find card":
+        card_name = easygui.enterbox("Enter the name of the card you want to find (leave blank to return to the welcome screen):", title="Find Card")
+        if card_name is None:  # User canceled or left blank
+            continue
+        elif not card_name:  # User left blank
+            pass  # Return to the welcome screen
+        elif card_name not in exist_cards:
+            easygui.msgbox(f"Card '{card_name}' does not exist.", "Error")
+        else:
+            card_stats = exist_cards[card_name]
+            card_info = f"## {card_name}\n\n"
+            card_info += f"### Strength: {card_stats['Strength']}\n"
+            card_info += f"### Speed: {card_stats['Speed']}\n"
+            card_info += f"### Stealth: {card_stats['Stealth']}\n"
+            card_info += f"### Cunning: {card_stats['Cunning']}\n"
+            easygui.msgbox(card_info, f"Card Details: {card_name}")
 
-                mobile_phone = easygui.enterbox ("Mobile: ", "Mobile phone")
-                contacts [ID_number]["Mobile"] = mobile_phone
+    elif choices == "Delete card":
+        card_name = easygui.enterbox("Enter the name of the card you want to delete (leave blank to return to the welcome screen):", title="Delete Card")
+        if card_name is None:  # User canceled or left blank
+            continue
+        elif not card_name:  # User left blank
+            pass  # Return to the welcome screen
+        elif card_name not in exist_cards:
+            easygui.msgbox(f"Card '{card_name}' does not exist.", "Error")
+        else:
+            confirm = easygui.buttonbox(f"Are you sure you want to delete the card '{card_name}'?", "Confirm Deletion", ("Yes", "No"))
+            if confirm == "Yes":
+                del exist_cards[card_name]
+                easygui.msgbox(f"Card '{card_name}' deleted successfully!", "Success")
 
-                email = easygui.enterbox("Email: ", "Email") contacts [ID_number]["Email"] = email
-    elif choice == "Print All":
-                    for contact_ID, contact_info in contacts.items():
-                        contact = f"\nContact ID: {contact_ID}"
-                        result.append(contact)
-                        for key in contact_info:
-                            result.append(f"{key}: {contact_info[key]}")
+    elif choices == "Edit card":
+        card_name = easygui.enterbox("Enter the name of the card you want to edit (leave blank to return to the welcome screen):", title="Edit Card")
+        if card_name is None:  # User canceled or left blank
+            continue
+        elif not card_name:  # User left blank
+            pass  # Return to the welcome screen
+        elif card_name not in exist_cards:
+            easygui.msgbox(f"Card '{card_name}' does not exist.", "Error")
+        else:
+            strength = easygui.integerbox(f"Enter the new Strength for {card_name} (0-25):", "Edit Card", lowerbound=0, upperbound=25)
+            speed = easygui.integerbox(f"Enter the new Speed for {card_name} (0-25):", "Edit Card", lowerbound=0, upperbound=25)
+            stealth = easygui.integerbox(f"Enter the new Stealth for {card_name} (0-25):", "Edit Card", lowerbound=0, upperbound=25)
+            cunning = easygui.integerbox(f"Enter the new Cunning for {card_name} (0-25):", "Edit Card", lowerbound=0, upperbound=25)
+            exist_cards[card_name] = {"Strength": strength, "Speed": speed, "Stealth": stealth, "Cunning": cunning}
+            easygui.msgbox(f"Card '{card_name}' updated successfully!", "Success")
+
+    elif choices == "Output all":
+        card_info = ""
+        for card_name, card_stats in exist_cards.items():
+            card_info += f"## {card_name}\n\n"
+            card_info += f"### Strength: {card_stats['Strength']}\n"
+            card_info += f"### Speed: {card_stats['Speed']}\n"
+            card_info += f"### Stealth: {card_stats['Stealth']}\n"
+            card_info += f"### Cunning: {card_stats['Cunning']}\n"
+            card_info += "\n"
+
+        easygui.msgbox(f"All Existing Cards:\n\n{card_info}", "Card List")
+
+    elif choices == "Exit":
+        break
