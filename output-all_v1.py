@@ -1,6 +1,4 @@
-###component 3 add combo###
-#For this version I am adding titles for easyguiboxes
-
+###component 7###
 import easygui
 
 
@@ -37,6 +35,6 @@ while True:
             card_info += f"### Cunning: {card_stats['Cunning']}\n"
             card_info += "\n"
         print(card_info)
-        easygui.msgbox("Menu has been printed in Python Console")
+        easygui.msgbox("Menu has been printed below In Python Console")
     elif choices == "Exit":
         break

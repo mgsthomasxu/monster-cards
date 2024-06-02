@@ -23,22 +23,27 @@ while True:
                                 "You may Edit and Delete cards, Add new cards, and Print all the existing cards\n"
                                 "       When Adding a new card You will be limited to 4 Categories \n"
                                 "     (Strength, Speed, Stealth, and Cunning) when Adding a new card",
-                                choices=["Add card", "Find card", "Delete card", "Edit card", "Output all", "Exit"],
-                                title="Monster Card OPTIONS")
-
-    if choices == "Find card":
-            card_name = easygui.enterbox("Enter the name of the card you want to find (leave blank to return to the welcome screen):", title="Find Card")
-            if card_name is None:  # User canceled or left blank
+                                choices=["Add card", "Search card", "Delete card", "Edit card", "Output all", "Exit"],
+                                title="Monster Card Manager")
+    if choices == "Search card":
+    # Get card name from user
+        card_name = easygui.enterbox("Enter the card name you would like to find:", title="Search Card")
+        # Check if card exists
+        if card_name in exist_cards:
+            # Get card stats
+            chosen_card = exist_cards[card_name]
+            card_details = f"{card_name}\n"
+            #stat = strings, value = integer
+            for stat, value in chosen_card.items():
+                card_details += f"{stat}: {value}\n"
+            # Show card details and get user choice
+            edit_choice = easygui.buttonbox(card_details, title= "Card Stats", choices=["Edit Card", "Return"])
+            # Handle user choice
+            if edit_choice == "Edit card":
+                pass
+            elif edit_choice == "Return":
                 continue
-            elif not card_name:  # User left blank
-                pass  # Return to the welcome screen
-            elif card_name not in exist_cards:
-                easygui.msgbox(f"Card '{card_name}' does not exist.", "Error")
-            else:
-                card_stats = exist_cards[card_name]
-                card_info = f"## {card_name}\n\n"
-                card_info += f"### Strength: {card_stats['Strength']}\n"
-                card_info += f"### Speed: {card_stats['Speed']}\n"
-                card_info += f"### Stealth: {card_stats['Stealth']}\n"
-                card_info += f"### Cunning: {card_stats['Cunning']}\n"
-                easygui.msgbox(card_info, f"Card Details: {card_name}")
+        else:
+            easygui.msgbox(f"Card '{card_name}' not found.", title= "Card Not Found")
+    elif choices == "Exit":
+        break

@@ -16,7 +16,7 @@ exist_cards = {
 }
 
 
-# Sotre exist cards in list
+# Store exist cards in list
 exist_cards = {
     "Stoneling": [["Strength", 7], ["Speed", 1], ["Stealth", 25], ["Cunning", 15]],
     "Vexscream": [["Strength", 1], ["Speed", 6], ["Stealth", 21], ["Cunning", 19]],

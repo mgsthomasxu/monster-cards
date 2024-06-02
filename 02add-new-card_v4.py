@@ -1,8 +1,6 @@
-###component 3 add combo###
-#For this version I added
+###component 3 add new card###
 
 import easygui
-
 
 exist_cards = {
     "Stoneling": {"Strength": 7, "Speed": 1, "Stealth": 25, "Cunning": 15},
@@ -17,7 +15,6 @@ exist_cards = {
     "Wispghoul": {"Strength": 17, "Speed": 19, "Stealth": 3, "Cunning": 2}
 }
 
-# Loop until the user chooses to exit
 while True:
     # Welcome screenn
     choices = easygui.buttonbox("                      Welcome to Monster Card Manager\n"
@@ -26,32 +23,25 @@ while True:
                                 "       When Adding a new card You will be limited to 4 Categories \n"
                                 "     (Strength, Speed, Stealth, and Cunning) when Adding a new card",
                                 choices=["Add card", "Find card", "Delete card", "Output all", "Exit"],
-                                title="Monster Card OPTIONS")
-                                
+                                title= "Monster Card Manager")
     if choices == "Add card":
-        card_name = easygui.enterbox("Enter the name for the new card \n(leave blank to return to welcome screen):", title="Add Card")
-        if not card_name:  # User left blank
-            pass  # Return to the welcome screen
+        card_name = easygui.enterbox("Enter the new monster card name:")
+        # User left blank
+        if card_name is None:  # User canceled can be Return to the welcome screen    
+            continue 
+        # This line checks if the entered card name already exists in the exist_cards dictionary
         elif card_name in exist_cards:
             easygui.msgbox(f"Card '{card_name}' already exists. Please choose a different name.", "Error")
+        # continue entering the 4 categories
         else:
-            strength = easygui.integerbox(f"Enter the Strength for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
-            speed = easygui.integerbox(f"Enter the Speed for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
-            stealth = easygui.integerbox(f"Enter the Stealth for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
-            cunning = easygui.integerbox(f"Enter the Cunning for {card_name} (0-25):", "Add Card", lowerbound=0, upperbound=25)
+            strength = easygui.integerbox("Enter the Strength value (1-25):", lowerbound=1, upperbound=25)
+            speed = easygui.integerbox("Enter the Speed value (1-25):", lowerbound=1, upperbound=25)
+            stealth = easygui.integerbox("Enter the Stealth value (1-25):", lowerbound=1, upperbound=25)
+            cunning = easygui.integerbox("Enter the Cunning value (1-25):", lowerbound=1, upperbound=25)
+            # Add the new card to the exist_cards dictionary
             exist_cards[card_name] = {"Strength": strength, "Speed": speed, "Stealth": stealth, "Cunning": cunning}
-            easygui.msgbox(f"Card '{card_name}' added successfully!", title="Success")
-    
-    elif choices == "Output all":
-        card_info = ""
-        for card_name, card_stats in exist_cards.items():
-            card_info += f"## {card_name}\n"
-            card_info += f"### Strength: {card_stats['Strength']}\n"
-            card_info += f"### Speed: {card_stats['Speed']}\n"
-            card_info += f"### Stealth: {card_stats['Stealth']}\n"
-            card_info += f"### Cunning: {card_stats['Cunning']}\n"
-            card_info += "\n"
-        print(card_info)
-        easygui.msgbox("Menu has been printed in Python Console")
+            easygui.msgbox(f"                        Card '{card_name}' added successfully!\n"
+                        "                  The full menu is down below In python console", "Success")
+            print(f"Existing cards:", exist_cards)  
     elif choices == "Exit":
         break

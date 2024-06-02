@@ -10,7 +10,7 @@ choices = easygui.buttonbox("                      Welcome to Monster Card Manag
                             "       When Adding a new card You will be limited to 4 Categories \n"
                             "     (Strength, Speed, Stealth, and Cunning) when Adding a new card",
                             choices=["Add card", "Find card", "Delete card", "Output all", "Exit"],
-                            title="Monster Card OPTIONS")
+                            title="Monster Card Manager")
 
 # Loop until the user chooses to exit
 while True:

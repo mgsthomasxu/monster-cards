@@ -1,6 +1,7 @@
-###component 3 add new card###
+###component 4 search card
 
 import easygui
+
 
 exist_cards = {
     "Stoneling": {"Strength": 7, "Speed": 1, "Stealth": 25, "Cunning": 15},
@@ -15,28 +16,34 @@ exist_cards = {
     "Wispghoul": {"Strength": 17, "Speed": 19, "Stealth": 3, "Cunning": 2}
 }
 
+
 while True:
-    # Welcome screenn
     choices = easygui.buttonbox("                      Welcome to Monster Card Manager\n"
-                                "                                Instrutions:\n"
+                                "                                Instructions:\n"
                                 "You may Edit and Delete cards, Add new cards, and Print all the existing cards\n"
                                 "       When Adding a new card You will be limited to 4 Categories \n"
                                 "     (Strength, Speed, Stealth, and Cunning) when Adding a new card",
-                                choices=["Add card", "Find card", "Delete card", "Output all", "Exit"],
-                                title= "Monster Card Manager")
-    if choices == "Add card":
-        card_name = easygui.enterbox("Enter the new monster card name (leave blank to exit):")
-        # User left blank
-        if card_name is None:  # User canceled can be Return to the welcome screen    
-            continue 
-        # continue entering the 4 categories
+                                choices=["Add card", "Search card", "Delete card", "Edit card", "Output all", "Exit"],
+                                title="Monster Card Manager")
+    if choices == "Search card":
+    # Get card name from user
+        card_name = easygui.enterbox("Enter the card name:", title="Search Card")
+        # Check if card exists
+        if card_name in exist_cards:
+            # Get card stats
+            chosen_card = exist_cards[card_name]
+            card_details = f"{card_name}\n"
+            #stat = strings, value = integer
+            for stat, value in chosen_card.items():
+                card_details += f"{stat}: {value}\n"
+            # Show card details and get user choice
+            edit_choice = easygui.buttonbox(card_details, title= "Card Stats", choices=["Edit Card", "Return"])
+            # Handle user choice
+            if edit_choice == "Edit card":
+                pass
+            elif edit_choice == "Return":
+                continue
         else:
-            strength = easygui.integerbox("Enter the Strength value (1-25):", lowerbound=1, upperbound=25)
-            speed = easygui.integerbox("Enter the Speed value (1-25):", lowerbound=1, upperbound=25)
-            stealth = easygui.integerbox("Enter the Stealth value (1-25):", lowerbound=1, upperbound=25)
-            cunning = easygui.integerbox("Enter the Cunning value (1-25):", lowerbound=1, upperbound=25)
-             # Add the new card to the exist_cards dictionary
-            exist_cards[card_name] = {"Strength": strength, "Speed": speed, "Stealth": stealth, "Cunning": cunning}
-            print(f"Existing cards:", exist_cards)
+            easygui.msgbox(f"Card '{card_name}' not found.", title= "Card Not Found")
     elif choices == "Exit":
         break

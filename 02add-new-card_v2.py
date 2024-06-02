@@ -25,10 +25,13 @@ while True:
                                 choices=["Add card", "Find card", "Delete card", "Output all", "Exit"],
                                 title= "Monster Card Manager")
     if choices == "Add card":
-        card_name = easygui.enterbox("Enter the new monster card name (leave blank to exit):")
+        card_name = easygui.enterbox("Enter the new monster card name:")
         # User left blank
         if card_name is None:  # User canceled can be Return to the welcome screen    
             continue 
+        # This line checks if the entered card name already exists in the exist_cards dictionary
+        elif card_name in exist_cards:
+            easygui.msgbox(f"Card '{card_name}' already exists. Please choose a different name.", "Error")
         # continue entering the 4 categories
         else:
             strength = easygui.integerbox("Enter the Strength value (1-25):", lowerbound=1, upperbound=25)
