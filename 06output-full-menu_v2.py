@@ -1,4 +1,4 @@
-###component 3 add combo###
+###component 7 output full menu###
 #For this version I am adding titles for easyguiboxes
 
 import easygui
@@ -26,16 +26,18 @@ while True:
                                 "       When Adding a new card You will be limited to 4 Categories \n"
                                 "     (Strength, Speed, Stealth, and Cunning) when Adding a new card",
                                 choices=["Add card", "Find card", "Delete card", "Output all", "Exit"],
-                                title="Monster Card OPTIONS")
+                                title="Monster Card Manager")
     if choices == "Output all":
         card_info = ""
+        # Loop through each card and its stats
         for card_name, card_stats in exist_cards.items():
-            card_info += f"## {card_name}\n"
-            card_info += f"### Strength: {card_stats['Strength']}\n"
-            card_info += f"### Speed: {card_stats['Speed']}\n"
-            card_info += f"### Stealth: {card_stats['Stealth']}\n"
-            card_info += f"### Cunning: {card_stats['Cunning']}\n"
-            card_info += "\n"
+            # Build a string with the card name and stats
+            card_info += f"# {card_name} = "
+            card_info += f"Strength: {card_stats['Strength']}, "
+            card_info += f"Speed: {card_stats['Speed']}, "
+            card_info += f"Stealth: {card_stats['Stealth']}, "
+            card_info += f"Cunning: {card_stats['Cunning']}\n"
+        # Print the card info string
         print(card_info)
         easygui.msgbox("Menu has been printed below In Python Console")
     elif choices == "Exit":
