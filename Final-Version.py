@@ -36,10 +36,19 @@ while True:
             easygui.msgbox(f"Card '{card_name}' already exists. Please choose a different name.", "Error")
         # continue entering the 4 categories
         else:
-            strength = easygui.integerbox("Enter the Strength value (1-25):", lowerbound=1, upperbound=25)
-            speed = easygui.integerbox("Enter the Speed value (1-25):", lowerbound=1, upperbound=25)
-            stealth = easygui.integerbox("Enter the Stealth value (1-25):", lowerbound=1, upperbound=25)
-            cunning = easygui.integerbox("Enter the Cunning value (1-25):", lowerbound=1, upperbound=25)
+            strength = easygui.integerbox(f"Enter {card_name} Strength value (1-25):", lowerbound=1, upperbound=25)
+                # If pressed cancel button go back to welcome screen
+            if strength is None:
+                continue
+            speed = easygui.integerbox(f"Enter {card_name} Speed value (1-25):", lowerbound=1, upperbound=25)
+            if speed is None:
+                continue
+            stealth = easygui.integerbox(f"Enter {card_name} Stealth value (1-25):", lowerbound=1, upperbound=25)
+            if stealth is None:
+                continue
+            cunning = easygui.integerbox(f"Enter {card_name} Cunning value (1-25):", lowerbound=1, upperbound=25)
+            if cunning is None:
+                continue
             # Add the new card to the exist_cards dictionary
             exist_cards[card_name] = {"Strength": strength, "Speed": speed, "Stealth": stealth, "Cunning": cunning}
             easygui.msgbox(f"                        Card '{card_name}' added successfully!\n"
