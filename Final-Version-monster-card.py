@@ -28,12 +28,12 @@ while True:
                                 title="Monster Card Manager")
     if choices == "Add card":
         card_name = easygui.enterbox("Enter the new monster card name:")
-        # User left blank
-        if card_name is None:  # User canceled can be Return to the welcome screen    
+        # User cancel can be Return to the welcome screen   
+        if card_name is None:   
             continue 
         # This line checks if the entered card name already exists in the exist_cards dictionary
         elif card_name in exist_cards:
-            easygui.msgbox(f"Card '{card_name}' already exists. Please choose a different name.", "Error")
+            easygui.msgbox(f"Card '{card_name}' already exists. Please choose a different name.", title="Error")
         # continue entering the 4 categories
         else:
             strength = easygui.integerbox(f"Enter {card_name} Strength value (1-25):", lowerbound=1, upperbound=25)
@@ -51,8 +51,7 @@ while True:
                 continue
             # Add the new card to the exist_cards dictionary
             exist_cards[card_name] = {"Strength": strength, "Speed": speed, "Stealth": stealth, "Cunning": cunning}
-            easygui.msgbox(f"                        Card '{card_name}' added successfully!\n"
-                        "                  The full menu is down below In python console", "Success")
+            easygui.msgbox(f"                        Card '{card_name}' added successfully!", title="Success")
     elif choices == "Search card":
     # Get card name from user
         card_name = easygui.enterbox("Enter the card name you would like to find:", title="Search Card")
@@ -61,7 +60,7 @@ while True:
             # Get card stats
             chosen_card = exist_cards[card_name]
             card_details = f"{card_name}\n"
-            #stat = strings, value = integer
+            # stat = strings, value = integer
             for stat, value in chosen_card.items():
                 card_details += f"{stat}: {value}\n"
             # Show card details and get user choice
@@ -83,8 +82,7 @@ while True:
                     continue
                 # Add the new card to the exist_cards dictionary
                 exist_cards[card_name] = {"Strength": strength, "Speed": speed, "Stealth": stealth, "Cunning": cunning}
-                easygui.msgbox(f"                        Card '{card_name}' added successfully!\n"
-                                "                  The full menu is down below In python console", "Success")
+                easygui.msgbox(f"                        Card '{card_name}' added successfully!",title="Success")
             elif edit_choice == "Cancel":
                 continue
         else:
@@ -100,23 +98,23 @@ while True:
             if confirm == "Yes":
                 # Delete Card
                 del exist_cards[card_name]
-                easygui.msgbox(f"{card_name} deleted successfully!", "Success")
+                easygui.msgbox(f"{card_name} deleted successfully!",title="Success")
             else:
                 # Cancel Deletion
-                easygui.msgbox("Card delete canceled.", "Canceled")
+                easygui.msgbox("Card delete canceled.", title="Canceled")
         else:
             # Card Not Found
             easygui.msgbox(f"{card_name} not found.", title="Card Not Found")
     elif choices == "Output all":
         card_info = ""
         # Loop through each card and its stats
-        for card_name, card_stats in exist_cards.items():
+        for card_name, card_value in exist_cards.items():
             # Build a string with the card name and stats
             card_info += f"# {card_name} = "
-            card_info += f"Strength: {card_stats['Strength']}, "
-            card_info += f"Speed: {card_stats['Speed']}, "
-            card_info += f"Stealth: {card_stats['Stealth']}, "
-            card_info += f"Cunning: {card_stats['Cunning']}\n"
+            card_info += f"Strength: {card_value['Strength']}, "
+            card_info += f"Speed: {card_value['Speed']}, "
+            card_info += f"Stealth: {card_value['Stealth']}, "
+            card_info += f"Cunning: {card_value['Cunning']}\n"
         # Print the card info string
         print(card_info)
         easygui.msgbox("Menu has been printed below In Python Console")
